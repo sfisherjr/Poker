@@ -6,6 +6,8 @@ HandManager::HandManager()
 	playerHand = new Card[5]();
 	dealerHand = new Card[5]();
 
+	srand(time(NULL));
+
 	generateDeck();
 }
 

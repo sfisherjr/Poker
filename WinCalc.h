@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Card.h"
+#include <iostream>
 
 class WinCalc
 {
@@ -16,4 +17,6 @@ private:
 	static const char * winTypeStr[6];
 
 	static WinType checkPairs(Card * hand);
+	static bool checkStraight(Card * hand);
+	static bool checkFlush(Card * hand);
 };

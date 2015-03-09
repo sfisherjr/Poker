@@ -32,7 +32,7 @@ int main()
 			 << Card::suitToStr(hMan->dealerHand[i].suit) << endl;
 	}
 
-	cout << WinCalc::winTypeToStr(WinCalc::checkHand(hMan->playerHand)) << endl;
+	cout << WinCalc::winTypeToStr(WinCalc::checkHand(hMan->dealerHand)) << endl;
 
 	delete hMan;
 
