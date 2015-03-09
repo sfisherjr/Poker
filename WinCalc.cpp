@@ -40,8 +40,6 @@ WinCalc::WinType WinCalc::checkPairs(Card * hand)
 
 	for (int i = 0; i < 13; i++)
 	{
-		std::cout << cardHolder[i] << " ";
-
 		if (cardHolder[i] == 2)
 			retVal = WinType::TwoPair;
 
@@ -59,6 +57,7 @@ bool WinCalc::checkStraight(Card * hand)
 {
 	bool isStraight = false;
 
+	int straightCount = 0;
 	int cardHolder[13] = { 0 };
 
 	for (int i = 0; i < 5; i++)
@@ -68,15 +67,49 @@ bool WinCalc::checkStraight(Card * hand)
 
 	for (int i = 0; i < 13; i++)
 	{
-		
+		if (straightCount == 5)
+		{
+			break;
+		}
+		else
+		{
+			if (cardHolder[i] == 1)
+				straightCount++;
+			else
+				straightCount = 0;
+		}
 	}
+
+	if (straightCount == 5)
+		isStraight = true;
 
 	return isStraight;
 }
 
 bool WinCalc::checkFlush(Card * hand)
 {
-	return false;
+	bool isFlush = false;
+	Card::Suit sBuffer;
+	int flushCount = 0;
+	sBuffer = hand[0].suit;
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (hand[i].suit == sBuffer)
+		{
+			flushCount++;
+		}
+		else
+		{
+			flushCount = 0;
+			break;
+		}
+	}
+
+	if (flushCount == 5)
+		isFlush = true;
+
+	return isFlush;
 }
 
 WinCalc::~WinCalc()
