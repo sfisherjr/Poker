@@ -2,7 +2,7 @@
 class Card
 {
 public:
-	enum Suit { Spades, Clubs, Diamonds, Heats };
+	enum Suit { Spades, Clubs, Diamonds, Hearts };
 	enum Rank { Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King };
 
 	Suit suit;

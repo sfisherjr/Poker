@@ -18,6 +18,6 @@ private:
 	Card * deck;
 
 	void generateDeck();
-	void dealCardsTo(Card * hand);
+	void dealCardsTo(Card * hand, int set);
 };
 

@@ -12,10 +12,10 @@ HandManager::HandManager()
 void HandManager::dealHand(bool dealPlayer, bool dealDealer)
 {
 	if (dealPlayer)
-		dealCardsTo(playerHand);
+		dealCardsTo(playerHand, 1);
 	
 	if (dealDealer)
-		dealCardsTo(dealerHand);
+		dealCardsTo(dealerHand, 2);
 }
 
 void HandManager::shuffleDeck()
@@ -50,9 +50,18 @@ void HandManager::generateDeck()
 	}
 }
 
-void HandManager::dealCardsTo(Card * hand)
+void HandManager::dealCardsTo(Card * hand, int set)
 {
-	
+	if (set == 1)
+	{
+		for (int i = 0; i < 5; i++)
+			hand[i] = deck[i];
+	}
+	else
+	{
+		for (int i = 5; i < 10; i++)
+			hand[i - 5] = deck[i];
+	}
 }
 
 HandManager::~HandManager()
