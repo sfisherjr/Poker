@@ -65,12 +65,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="HandManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WinCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="HandManager.h" />
     <ClInclude Include="WinCalc.h" />
   </ItemGroup>

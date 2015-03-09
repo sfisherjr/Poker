@@ -1,40 +1,15 @@
 #include <iostream>
-#include "HandManager.h"
-#include "WinCalc.h"
+#include "Game.h"
 
 using namespace std;
 
 int main()
 {
-	HandManager * hMan = new HandManager();
+	Game * mGame = new Game();
 
-	hMan->shuffleDeck();
+	mGame->start();
 
-	hMan->dealHand(true, true);
-
-	cout << "Player Hand\n\n";
-
-	for (int i = 0; i < 5; i++)
-	{
-		cout << Card::rankToStr(hMan->playerHand[i].rank) 
-			 << " of " 
-			 << Card::suitToStr(hMan->playerHand[i].suit) << endl;
-	}
-
-	cout << WinCalc::winTypeToStr(WinCalc::checkHand(hMan->playerHand)) << endl;
-
-	cout << "\nDealer Hand\n\n";
-
-	for (int i = 0; i < 5; i++)
-	{
-		cout << Card::rankToStr(hMan->dealerHand[i].rank)
-			 << " of "
-			 << Card::suitToStr(hMan->dealerHand[i].suit) << endl;
-	}
-
-	cout << WinCalc::winTypeToStr(WinCalc::checkHand(hMan->dealerHand)) << endl;
-
-	delete hMan;
+	delete mGame;
 
 	cout << endl;
 	system("pause");
