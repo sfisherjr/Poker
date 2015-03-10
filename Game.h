@@ -3,6 +3,7 @@
 #include <iostream>
 #include "HandManager.h"
 #include "WinCalc.h"
+#include "BetManager.h"
 
 class Game
 {
@@ -13,9 +14,12 @@ public:
 
 private:
 	HandManager * hMan;
+	BetManager * bMan;
 	bool isRunning;
 
+	void printPlayerInfo();
 	void dealHands();
-	void printHands();
-	void printResults(WinCalc::WinResult playerResult, WinCalc::WinResult dealerResult);
+	void printPlayerHand();
+	void printDealerHand();
+	void printResults();
 };
