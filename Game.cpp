@@ -24,6 +24,9 @@ void Game::start()
 			bMan->getPlayerBet();
 
 			system("cls");
+			printPlayerHand();
+			discard();
+			system("cls");
 
 			printPlayerInfo();
 			printPlayerHand();
@@ -56,6 +59,35 @@ void Game::dealHands()
 {
 	hMan->shuffleDeck();
 	hMan->dealHand(true, true);
+}
+
+void Game::discard()
+{
+	std::cout << std::endl;
+
+	int discardTracker[5] = { 0 };
+
+	std::cout << "Type -1 to stop discarding!\n";
+
+	for (int i = 0; i < 5; i++)
+	{
+		std::cout << "Select Discard #" << i + 1 << ": ";
+		std::cin >> discardTracker[i];
+
+		if (discardTracker[i] == -1)
+			break;
+	}
+
+	if (discardTracker[0] > -1)
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (discardTracker[i] > 0)
+			{
+				hMan->playerHand[discardTracker[i] - 1] = *hMan->getCardFromDeck(i + 25);
+			}
+		}
+	}
 }
 
 void Game::printPlayerHand()

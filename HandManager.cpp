@@ -25,6 +25,11 @@ void HandManager::shuffleDeck()
 	std::random_shuffle(&deck[0], &deck[52]);
 }
 
+Card * HandManager::getCardFromDeck(int index)
+{
+	return &deck[index];
+}
+
 void HandManager::generateDeck()
 {
 	Card * cBuffer;

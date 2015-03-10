@@ -20,6 +20,7 @@ private:
 
 	void printPlayerInfo();
 	void dealHands();
+	void discard();
 	void printPlayerHand();
 	void printDealerHand();
 	void printResults();

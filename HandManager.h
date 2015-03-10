@@ -15,6 +15,7 @@ public:
 	HandManager();
 	void dealHand(bool dealPlayer, bool dealDealer);
 	void shuffleDeck();
+	Card * getCardFromDeck(int index);
 	~HandManager();
 
 private:
