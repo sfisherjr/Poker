@@ -6,17 +6,18 @@
 class WinCalc
 {
 public:
-	enum WinType { Loser, TwoPair, ThreeKind, FourKind, Straight, Flush };
+	enum WinType { Loser, Pair, TwoPair, ThreeKind, FourKind, Straight, Flush };
+	struct WinResult { Card::Rank highCard; WinCalc::WinType winType; };
 
 	WinCalc();
 	static const char * winTypeToStr(int index);
-	static WinType checkHand(Card * hand);
+	static WinResult checkHand(Card * hand);
 	~WinCalc();
 
 private:
-	static const char * winTypeStr[6];
+	static const char * winTypeStr[7];
 
-	static WinType checkPairs(Card * hand);
-	static bool checkStraight(Card * hand);
-	static bool checkFlush(Card * hand);
+	static WinResult checkPairs(Card * hand);
+	static WinResult checkStraight(Card * hand);
+	static WinResult checkFlush(Card * hand);
 };

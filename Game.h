@@ -17,4 +17,5 @@ private:
 
 	void dealHands();
 	void printHands();
+	void printResults(WinCalc::WinResult playerResult, WinCalc::WinResult dealerResult);
 };

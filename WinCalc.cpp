@@ -1,7 +1,7 @@
 #include "WinCalc.h"
 
-const char * WinCalc::winTypeStr[6] = {
-	"Loser", "Two Pair", "Three-of-a-Kind", "Four-of-a-Kind", "Straight", "Flush"
+const char * WinCalc::winTypeStr[7] = {
+	"Loser", "Pair", "Two Pair", "Three-of-a-Kind", "Four-of-a-Kind", "Straight", "Flush"
 };
 
 WinCalc::WinCalc()
@@ -13,24 +13,43 @@ const char * WinCalc::winTypeToStr(int index)
 	return winTypeStr[index];
 }
 
-WinCalc::WinType WinCalc::checkHand(Card * hand)
+WinCalc::WinResult WinCalc::checkHand(Card * hand)
 {
-	WinType retVal = WinType::Loser;
+	WinResult retVal;
+	WinResult bufferWinResult;
 
 	retVal = checkPairs(hand);
 
-	if (checkStraight(hand))
-		retVal = WinType::Straight;
-	if (checkFlush(hand))
-		retVal = WinType::Flush;
+	bufferWinResult = checkStraight(hand);
+
+	if (bufferWinResult.winType > WinType::Loser)
+		retVal = bufferWinResult;
+
+	bufferWinResult = checkFlush(hand);
+
+	if (bufferWinResult.winType > WinType::Loser)
+		retVal = bufferWinResult;
+
+	// If the player doesn't have a winning hand use the highest card
+	if (retVal.winType == WinType::Loser)
+	{
+		retVal.highCard = hand[0].rank;
+
+		for (int i = 0; i < 5; i++)
+		{
+			if (hand[i].rank > retVal.highCard)
+				retVal.highCard = hand[i].rank;
+		}
+	}
 
 	return retVal;
 }
 
-WinCalc::WinType WinCalc::checkPairs(Card * hand)
+WinCalc::WinResult WinCalc::checkPairs(Card * hand)
 {
-	WinType retVal = WinType::Loser;
-
+	WinResult retVal;
+	retVal.winType = WinType::Loser;
+	int dubPairCounter = 0;
 	int cardHolder[13] = { 0 };
 
 	for (int i = 0; i < 5; i++)
@@ -41,22 +60,35 @@ WinCalc::WinType WinCalc::checkPairs(Card * hand)
 	for (int i = 0; i < 13; i++)
 	{
 		if (cardHolder[i] == 2)
-			retVal = WinType::TwoPair;
+		{
+			retVal.winType = WinType::Pair;
+			retVal.highCard = (Card::Rank)i;
+
+			dubPairCounter++;
+		}
 
 		if (cardHolder[i] == 3)
-			retVal = WinType::ThreeKind;
+		{
+			retVal.winType = WinType::ThreeKind;
+			retVal.highCard = (Card::Rank)i;
+		}
 
 		if (cardHolder[i] == 4)
-			retVal = WinType::FourKind;
+		{
+			retVal.winType = WinType::FourKind;
+			retVal.highCard = (Card::Rank)i;
+		}
 	}
+
+	if (dubPairCounter == 2)
+		retVal.winType = WinType::TwoPair;
 
 	return retVal;
 }
 
-bool WinCalc::checkStraight(Card * hand)
+WinCalc::WinResult WinCalc::checkStraight(Card * hand)
 {
-	bool isStraight = false;
-
+	WinResult retVal;
 	int straightCount = 0;
 	int cardHolder[13] = { 0 };
 
@@ -69,6 +101,8 @@ bool WinCalc::checkStraight(Card * hand)
 	{
 		if (straightCount == 5)
 		{
+			// Get highest card
+			retVal.highCard = (Card::Rank)i;
 			break;
 		}
 		else
@@ -81,14 +115,16 @@ bool WinCalc::checkStraight(Card * hand)
 	}
 
 	if (straightCount == 5)
-		isStraight = true;
+		retVal.winType = WinType::Straight;
+	else
+		retVal.winType = WinType::Loser;
 
-	return isStraight;
+	return retVal;
 }
 
-bool WinCalc::checkFlush(Card * hand)
+WinCalc::WinResult WinCalc::checkFlush(Card * hand)
 {
-	bool isFlush = false;
+	WinResult retVal;
 	Card::Suit sBuffer;
 	int flushCount = 0;
 	sBuffer = hand[0].suit;
@@ -107,9 +143,24 @@ bool WinCalc::checkFlush(Card * hand)
 	}
 
 	if (flushCount == 5)
-		isFlush = true;
+	{
+		retVal.winType = WinType::Flush;
 
-	return isFlush;
+		retVal.highCard = hand[0].rank;
+
+		// Get high card
+		for (int i = 0; i < 5; i++)
+		{
+			if (hand[i].rank > retVal.highCard)
+				retVal.highCard = hand[i].rank;
+		}
+	}
+	else
+	{
+		retVal.winType = WinType::Loser;
+	}
+
+	return retVal;
 }
 
 WinCalc::~WinCalc()
