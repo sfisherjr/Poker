@@ -1,4 +1,10 @@
+/**
+	Author: Steven Fisher
+	Project: Unit 2 Problem 1
+*/
+
 #pragma once
+
 class Card
 {
 public:
@@ -18,4 +24,3 @@ private:
 	static const char * suitStr[4];
 	static const char * rankStr[13];
 };
-

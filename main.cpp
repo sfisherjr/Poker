@@ -1,3 +1,10 @@
+/**
+	Author: Steven Fisher
+	Project: Unit 2 Problem 1
+	Documentation: Full source control and documentation 
+	can be found at https://gitlab.com/Reizen/Poker
+*/
+
 #include <iostream>
 #include "Game.h"
 

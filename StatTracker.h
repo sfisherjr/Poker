@@ -1,3 +1,8 @@
+/**
+	Author: Steven Fisher
+	Project: Unit 2 Problem 1
+*/
+
 #pragma once
 
 #include <iostream>
