@@ -43,6 +43,8 @@ void Game::start()
 
 	std::system("cls");
 	std::cout << "Thanks for playing!\n\n";
+	
+	StatTracker::printStats();
 }
 
 void Game::printPlayerInfo()

@@ -56,17 +56,29 @@ void BetManager::playerWins()
 {
 	playerMoney += totalPot * 2;
 	totalPot = 0;
+
+	StatTracker::trackedStats.playerMoney = playerMoney;
+	StatTracker::trackedStats.playerWins++;
+	StatTracker::trackedStats.totalGames++;
 }
 
 void BetManager::dealerWins()
 {
 	totalPot = 0;
+
+	StatTracker::trackedStats.playerMoney = playerMoney;
+	StatTracker::trackedStats.dealerWins++;
+	StatTracker::trackedStats.totalGames++;
 }
 
 void BetManager::pushNoWin()
 {
 	playerMoney += totalPot;
 	totalPot = 0;
+
+	StatTracker::trackedStats.playerMoney = playerMoney;
+	StatTracker::trackedStats.totalPushes++;
+	StatTracker::trackedStats.totalGames++;
 }
 
 BetManager::~BetManager()

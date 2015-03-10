@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "StatTracker.h"
 
 class BetManager
 {

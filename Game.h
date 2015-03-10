@@ -4,6 +4,7 @@
 #include "HandManager.h"
 #include "WinCalc.h"
 #include "BetManager.h"
+#include "StatTracker.h"
 
 class Game
 {

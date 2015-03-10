@@ -69,6 +69,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HandManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StatTracker.cpp" />
     <ClCompile Include="WinCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +77,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HandManager.h" />
+    <ClInclude Include="StatTracker.h" />
     <ClInclude Include="WinCalc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
