@@ -2,6 +2,7 @@
 
 ----
 ## Build
+
 #### Windows
 > 1. Install CMake & MinGW
 > 2. Setup environment variable for MinGW
@@ -10,7 +11,7 @@
 > 5. Run mingw32-make.exe
 > 6. Done
 
-##### Linux
+#### Linux
 > Will be added soon
 
 ----
