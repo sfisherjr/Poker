@@ -1,6 +1,19 @@
 # Simple Poker
 
 ----
+## Build
+#### Windows
+> 1. Install CMake & MinGW
+> 2. Setup environment variable for MinGW
+> 3. Go to Poker directory
+> 4. Run cmake -G "MinGW Makefiles"
+> 5. Run mingw32-make.exe
+> 6. Done
+
+##### Linux
+> Will be added soon
+
+----
 ## Design
 The design is being established, as it will be transitioning from CLI based, to a full GUI based game using SDL2.
 
