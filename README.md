@@ -1,7 +1,7 @@
 # Simple Poker
 
-----
 ## Build
+----
 
 #### Windows
 > 1. Install CMake & MinGW
@@ -11,15 +11,16 @@
 > 5. Run mingw32-make.exe
 > 6. Done
 
-#### Linux
+##### Linux
 > Will be added soon
 
-----
 ## Design
+----
 The design is being established, as it will be transitioning from CLI based, to a full GUI based game using SDL2.
 
-----
+
 ## Sprites
+----
 Game sprites have been found for the base of the game.
 
 Kenney's Public Domain Board Game Graphics
