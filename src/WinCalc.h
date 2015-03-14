@@ -3,7 +3,8 @@
 	Project: Unit 2 Problem 1
 */
 
-#pragma once
+#ifndef _WINCALC_H_
+#define _WINCALC_H_
 
 #include "Card.h"
 #include <iostream>
@@ -26,3 +27,5 @@ private:
 	static WinResult checkStraight(Card * hand);
 	static WinResult checkFlush(Card * hand);
 };
+
+#endif

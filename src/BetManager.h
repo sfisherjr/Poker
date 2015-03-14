@@ -3,7 +3,8 @@
 	Project: Unit 2 Problem 1
 */
 
-#pragma once
+#ifndef _BETMANAGER_H_
+#define _BETMANAGER_H_
 
 #include <iostream>
 #include "StatTracker.h"
@@ -21,3 +22,5 @@ public:
 	void pushNoWin();
 	~BetManager();
 };
+
+#endif

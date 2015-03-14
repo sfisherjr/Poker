@@ -3,7 +3,8 @@
 	Project: Unit 2 Problem 1
 */
 
-#pragma once
+#ifndef _HANDMANAGER_H_
+#define _HANDMANAGER_H_
 
 #include "Card.h"
 #include <stdio.h>
@@ -30,3 +31,4 @@ private:
 	void dealCardsTo(Card * hand, int set);
 };
 
+#endif

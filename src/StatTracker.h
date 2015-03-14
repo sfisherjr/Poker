@@ -3,7 +3,8 @@
 	Project: Unit 2 Problem 1
 */
 
-#pragma once
+#ifndef _STATTRACKER_H_
+#define _STATTRACKER_H_
 
 #include <iostream>
 
@@ -17,3 +18,5 @@ public:
 	static void printStats();
 	~StatTracker();
 };
+
+#endif

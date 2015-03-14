@@ -3,7 +3,8 @@
 	Project: Unit 2 Problem 1
 */
 
-#pragma once
+#ifndef _GAME_H_
+#define _GAME_H_
 
 #include <iostream>
 #include "HandManager.h"
@@ -30,3 +31,5 @@ private:
 	void printDealerHand();
 	void printResults();
 };
+
+#endif
