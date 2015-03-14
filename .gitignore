@@ -1,6 +1,9 @@
 CMakeCache.txt
 CMakeFiles
+CMakeLists.txt.user
 Makefile
 cmake_install.cmake
 install_manifest.txt
 Poker
+Poker.exe
+Poker.cbp
