@@ -1,4 +1,5 @@
 # Simple Poker
+----
 
 ## Build
 ----
@@ -11,8 +12,12 @@
 > 5. Run mingw32-make.exe
 > 6. Done
 
-##### Linux
-> Will be added soon
+#### Linux
+> 1. Install CMake
+> 2. Go to Poker directory
+> 3. Run cmake -G "Unix Makefiles"
+> 4. Run make
+> 5. Done
 
 ## Design
 ----
