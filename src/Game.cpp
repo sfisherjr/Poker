@@ -1,175 +1,72 @@
 #include "Game.h"
 
+using namespace std;
+
+const int Game::SCREEN_WIDTH = 1024;
+const int Game::SCREEN_HEIGHT = 768;
+
 Game::Game()
 {
-	bMan = new BetManager();
-	hMan = new HandManager();
 	isRunning = false;
 
-	bMan->playerMoney = 100;
+	init();
 }
 
 void Game::start()
 {
 	isRunning = true;
-	int inputBuffer = 0;
+	SDL_Event event;
 
 	while (isRunning)
 	{
-		if (bMan->playerMoney >= 5)
+		SDL_WaitEvent(&event);
+
+		switch (event.type)
 		{
-			printPlayerInfo();
-			dealHands();
-			printPlayerHand();
-			bMan->getPlayerBet();
-
-			system("cls");
-			printPlayerHand();
-			discard();
-			system("cls");
-
-			printPlayerInfo();
-			printPlayerHand();
-			std::cout << std::endl;
-			printDealerHand();
-			printResults();
-
-			std::cout << "\n\nPress 1 to play again 0 to exit: ";
-			std::cin >> inputBuffer;
-
-			if (inputBuffer != 1)
+			case SDL_QUIT:
 				isRunning = false;
-			else
-				system("cls");
+				break;
 		}
-	}
 
-	std::system("cls");
-	std::cout << "Thanks for playing!\n\n";
+		update();
+		draw();
+		SDL_RenderPresent(renderer);
+	}
+}
+
+void Game::init()
+{
+	SDL_Init(SDL_INIT_VIDEO);
+	IMG_Init(IMG_INIT_PNG);
+
+	window = SDL_CreateWindow("Poker", 
+		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+		SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+
+	renderer = SDL_CreateRenderer(window, -1, 0);
+
+	load();
+}
+
+void Game::load()
+{
 	
-	StatTracker::printStats();
 }
 
-void Game::printPlayerInfo()
+void Game::update()
 {
-	std::cout << "Your Balance: $" << bMan->playerMoney << std::endl << std::endl;
+
 }
 
-void Game::dealHands()
+void Game::draw()
 {
-	hMan->shuffleDeck();
-	hMan->dealHand(true, true);
-}
-
-void Game::discard()
-{
-	std::cout << std::endl;
-
-	int discardTracker[5] = { 0 };
-
-	std::cout << "Type -1 to stop discarding!\n";
-
-	for (int i = 0; i < 5; i++)
-	{
-		std::cout << "Select Discard #" << i + 1 << ": ";
-		std::cin >> discardTracker[i];
-
-		if (discardTracker[i] == -1)
-			break;
-	}
-
-	if (discardTracker[0] > -1)
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			if (discardTracker[i] > 0)
-			{
-				hMan->playerHand[discardTracker[i] - 1] = *hMan->getCardFromDeck(i + 25);
-			}
-		}
-	}
-}
-
-void Game::printPlayerHand()
-{
-	std::cout << "Your hand\n\n";
-
-	for (int i = 0; i < 5; i++)
-	{
-		std::cout << Card::rankToStr(hMan->playerHand[i].rank)
-			<< " of "
-			<< Card::suitToStr(hMan->playerHand[i].suit) << std::endl;
-	}
-}
-
-void Game::printDealerHand()
-{
-	std::cout << "DealerHand\n\n";
-
-	for (int i = 0; i < 5; i++)
-	{
-		std::cout << Card::rankToStr(hMan->dealerHand[i].rank)
-			<< " of "
-			<< Card::suitToStr(hMan->dealerHand[i].suit) << std::endl;
-	}
-}
-
-void Game::printResults()
-{
-	WinCalc::WinResult playerResult = WinCalc::checkHand(hMan->playerHand);
-
-	std::cout << std::endl;
-
-	std::cout << WinCalc::winTypeToStr(playerResult.winType) << std::endl;
-	std::cout << "High Card: " << Card::rankToStr(playerResult.highCard);
-
-	WinCalc::WinResult dealerResult = WinCalc::checkHand(hMan->dealerHand);
-
-	std::cout << std::endl;
-
-	std::cout << WinCalc::winTypeToStr(dealerResult.winType) << std::endl;
-	std::cout << "High Card: " << Card::rankToStr(dealerResult.highCard);
-
-	std::cout << std::endl;
-
-	/* Compare results to show who won */
-	if (playerResult.winType == dealerResult.winType)
-	{
-		// Push
-		if (playerResult.highCard == dealerResult.highCard)
-		{
-			std::cout << "\nWin Result: Push!" << std::endl;
-			bMan->pushNoWin();
-		}
-		else if (playerResult.highCard > dealerResult.highCard)
-		{
-			// Player win
-			std::cout << "\nWin Result: You Won!" << std::endl;
-			bMan->playerWins();
-		}
-		else if (dealerResult.highCard > playerResult.highCard)
-		{
-			// Dealer win
-			std::cout << "\nWin Result: The Dealer Won!" << std::endl;
-			bMan->dealerWins();
-		}
-	}
-	else if (playerResult.winType > dealerResult.winType)
-	{
-		// Player win
-		std::cout << "\nWin Result: You Won!" << std::endl;
-		bMan->playerWins();
-	}
-	else if (dealerResult.winType > playerResult.winType)
-	{
-		// Dealer win
-		std::cout << "\nWin Result: The Dealer Won!" << std::endl;
-		bMan->dealerWins();
-	}
+	
 }
 
 Game::~Game()
 {
-	delete bMan;
-	delete hMan;
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	IMG_Quit();
+	SDL_Quit();
 }

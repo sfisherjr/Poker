@@ -5,10 +5,7 @@
 	can be found at https://gitlab.com/Reizen/Poker
 */
 
-#include <iostream>
 #include "Game.h"
-
-using namespace std;
 
 int main(int argc, char ** argv)
 {
@@ -18,7 +15,5 @@ int main(int argc, char ** argv)
 
 	delete mGame;
 
-	cout << endl;
-	system("pause");
 	return 0;
 }

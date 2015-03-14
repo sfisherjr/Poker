@@ -6,30 +6,29 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include <iostream>
-#include "HandManager.h"
-#include "WinCalc.h"
-#include "BetManager.h"
-#include "StatTracker.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "Sprite.h"
 
 class Game
 {
 public:
+	static const int SCREEN_WIDTH;
+	static const int SCREEN_HEIGHT;
+
 	Game();
 	void start();
 	~Game();
 
 private:
-	HandManager * hMan;
-	BetManager * bMan;
+	SDL_Window * window;
+	SDL_Renderer * renderer;
 	bool isRunning;
 
-	void printPlayerInfo();
-	void dealHands();
-	void discard();
-	void printPlayerHand();
-	void printDealerHand();
-	void printResults();
+	void init();
+	void load();
+	void update();
+	void draw();
 };
 
 #endif
