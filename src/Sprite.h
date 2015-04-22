@@ -8,12 +8,15 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <iostream>
 
 class Sprite
 {
 public:
 	SDL_Surface * image;
 	SDL_Texture * texture;
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
 
 	Sprite();
 	void load(const char * filename, SDL_Renderer * renderer);

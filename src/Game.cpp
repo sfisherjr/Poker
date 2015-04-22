@@ -19,13 +19,14 @@ void Game::start()
 
 	while (isRunning)
 	{
-		SDL_WaitEvent(&event);
-
-		switch (event.type)
+		while (SDL_PollEvent(&event))
 		{
-			case SDL_QUIT:
-				isRunning = false;
-				break;
+			switch (event.type)
+			{
+				case SDL_QUIT:
+					isRunning = false;
+					break;
+			}
 		}
 
 		update();
@@ -50,21 +51,34 @@ void Game::init()
 
 void Game::load()
 {
-	
+	testSprite = new Sprite();
+	testSprite->load("Cards/cardClubsAce.png", renderer);
+
+	testSprite->srcRect.x = 0;
+	testSprite->srcRect.y = 0;
+	testSprite->srcRect.w = 140;
+	testSprite->srcRect.h = 190;
+
+	testSprite->destRect.x = 0;
+	testSprite->destRect.y = 0;
+	testSprite->destRect.w = 140;
+	testSprite->destRect.h = 190;
 }
 
 void Game::update()
 {
-
+	
 }
 
 void Game::draw()
 {
-	
+	testSprite->draw(renderer);
 }
 
 Game::~Game()
 {
+	delete testSprite;
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();
