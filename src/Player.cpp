@@ -38,7 +38,7 @@ Player::Player(SDL_Renderer *renderer)
     // The max distance the cards can be displayed at
     const int pos_x_bounds = (hand_panel_width + panel_start_pos_x) - card_width;
 
-    for (panel_start_pos_x; panel_start_pos_x <= pos_x_bounds; panel_start_pos_x += card_width)
+    for (; panel_start_pos_x <= pos_x_bounds; panel_start_pos_x += card_width)
     {
         auto card = card_mgr->random_card();
 
