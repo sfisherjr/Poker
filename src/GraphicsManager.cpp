@@ -14,7 +14,7 @@ std::pair<int, int> GraphicsManager::get_window_size()
 {
     std::pair<int, int> window_size;
 
-    SDL_GetWindowSize(window, &window_size.first, &window_size.second);
+    SDL_GL_GetDrawableSize(window, &window_size.first, &window_size.second);
 
     return window_size;
 }

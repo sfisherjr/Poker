@@ -55,7 +55,7 @@ void Game::init()
                               SDL_WINDOWPOS_CENTERED,
                               dm.w,
                               dm.h,
-                              SDL_WINDOW_FULLSCREEN_DESKTOP);
+                              SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
 
     renderer = SDL_CreateRenderer(window, -1, 0);
 
