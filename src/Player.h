@@ -4,7 +4,6 @@
 #include <memory>
 #include <SDL2/SDL.h>
 #include <vector>
-#include "CardManager.h"
 #include "Card.h"
 
 class Player {
@@ -14,15 +13,18 @@ public:
     int hand_panel_width;
     int hand_panel_height;
 
-    Player(SDL_Renderer *renderer);
+    Player() = default;
     void handle_input(int x, int y);
     void update();
-    void draw_hand();
+    void draw(SDL_Renderer *renderer);
+    void add_to_hand(std::unique_ptr<Card> card);
+    void clear_hand();
+    std::vector<std::unique_ptr<Card>> retrieve_selected();
+    void layout_hand();
 
 private:
-    SDL_Renderer *renderer;
-    int card_display_count = 5;
     std::vector<std::unique_ptr<Card>> hand;
+    std::vector<Card*> removal_hand_refs;
 };
 
 #endif

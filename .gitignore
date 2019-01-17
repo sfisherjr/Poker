@@ -8,3 +8,6 @@ Poker
 Poker.exe
 Poker.cbp
 .DS_Store
+build/
+cmake-build-debug/
+.idea/

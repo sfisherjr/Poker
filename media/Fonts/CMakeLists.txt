@@ -1,0 +1,1 @@
+configure_file(OpenSans-Regular.ttf ${CMAKE_BINARY_DIR}/media/Fonts COPYONLY)

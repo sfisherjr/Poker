@@ -6,15 +6,20 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Card.h"
+#include <random>
 
-class CardManager
+class Deck
 {
 public:
     std::vector<std::unique_ptr<Card>> cards;
 
-    CardManager();
+    Deck() = default;
     void load_cards(SDL_Renderer *renderer);
     std::unique_ptr<Card> random_card();
+
+private:
+    std::random_device rd;
+    std::mt19937 gen{rd()};
 };
 
 #endif

@@ -1,0 +1,1 @@
+configure_file(button_draw.png ${CMAKE_BINARY_DIR}/media/Images COPYONLY)

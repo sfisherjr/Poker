@@ -1,63 +1,28 @@
 #include "Player.h"
-
-Player::Player(SDL_Renderer *renderer)
-{
-    this->renderer = renderer;
-
-    auto card_mgr = std::make_unique<CardManager>();
-    card_mgr->load_cards(renderer);
-
-    // Width of game screen
-    const int screen_width = 1024;
-
-    // Height of game screen
-    const int screen_height = 768;
-
-    // Width of card
-    const int card_width = 140;
-
-    // Height of card
-    const int card_height = 190;
-
-    hand_panel_height = card_height;
-
-    // Number of cards to display in hand
-    const int card_count = 5;
-
-    // width of hand panel
-    hand_panel_width = card_width * card_count;
-
-    // Starting x position of the hand panel
-    int panel_start_pos_x = (screen_width / 2) - (hand_panel_width / 2);
-
-    hand_panel_x = panel_start_pos_x;
-
-    // Starting y position of the hand panel
-    hand_panel_y = screen_height - card_height;
-    
-    // The max distance the cards can be displayed at
-    const int pos_x_bounds = (hand_panel_width + panel_start_pos_x) - card_width;
-
-    for (; panel_start_pos_x <= pos_x_bounds; panel_start_pos_x += card_width)
-    {
-        auto card = card_mgr->random_card();
-
-        // Set position of card
-        card->sprite->destRect.x = panel_start_pos_x;
-        card->sprite->destRect.y = hand_panel_y;
-        
-        hand.push_back(std::move(card));
-    }
-}
+#include "GraphicsManager.h"
 
 void Player::handle_input(int x, int y)
 {
-    for (int i = 0; i < hand.size(); i++)
+    for (auto && c : hand)
     {
-        if (x >= hand[i]->sprite->destRect.x && x <= hand[i]->sprite->destRect.x + hand[i]->sprite->destRect.w
-            && y >= hand[i]->sprite->destRect.y && y <= hand[i]->sprite->destRect.y + hand[i]->sprite->destRect.h)
+        if (x >= c->dest_rect.x && x <= c->dest_rect.x + c->dest_rect.w
+            && y >= c->dest_rect.y && y <= c->dest_rect.y + c->dest_rect.h)
         {
-            (!hand[i]->isSelected) ? hand[i]->select() : hand[i]->deselect();
+            if (c->isSelected)
+            {
+                c->deselect();
+
+                for (int rc{0}; rc < removal_hand_refs.size(); ++rc)
+                {
+                    if (removal_hand_refs[rc] == c.get())
+                        removal_hand_refs.erase(removal_hand_refs.begin() + rc);
+                }
+            }
+            else
+            {
+                c->select();
+                removal_hand_refs.push_back(c.get());
+            }
 
             break;
         }
@@ -69,10 +34,79 @@ void Player::update()
 
 }
 
-void Player::draw_hand()
+void Player::draw(SDL_Renderer *renderer)
 {
-    for (int i = 0; i < hand.size(); i++) 
+    for (auto && c : hand)
     {
-        hand[i]->sprite->draw(renderer);
+        c->draw(renderer);
+    }
+}
+
+void Player::add_to_hand(std::unique_ptr<Card> card)
+{
+    hand.push_back(std::move(card));
+}
+
+void Player::clear_hand()
+{
+    hand.clear();
+}
+
+std::vector<std::unique_ptr<Card>> Player::retrieve_selected()
+{
+    std::vector<std::unique_ptr<Card>> selected_cards;
+
+    std::cout << "removal_hand size = " << removal_hand_refs.size() << std::endl;
+
+    for (int i{static_cast<int>(hand.size())}; i >= 0; --i)
+    {
+        for (auto removal_card : removal_hand_refs)
+        {
+            if (hand[i].get() == removal_card)
+            {
+                selected_cards.push_back(std::move(hand[i]));
+                hand.erase(hand.begin() + i);
+                break;
+            }
+        }
+    }
+
+
+    return selected_cards;
+}
+
+void Player::layout_hand()
+{
+    auto gm = GraphicsManager::get_instance();
+    auto window_res = gm->get_window_size();
+
+    // Width of card
+    const int card_width{140};
+
+    // Height of card
+    const int card_height{190};
+
+    hand_panel_height = card_height;
+
+    // Number of cards to display in hand
+    const int card_count{5};
+
+    // width of hand panel
+    hand_panel_width = card_width * card_count;
+
+    // Starting x position of the hand panel
+    int panel_start_pos_x{(window_res.first / 2) - (hand_panel_width / 2)};
+
+    hand_panel_x = panel_start_pos_x;
+
+    // Starting y position of the hand panel
+    hand_panel_y = window_res.second - card_height;
+
+    for (auto && c : hand)
+    {
+        c->dest_rect.x = panel_start_pos_x;
+        c->dest_rect.y = hand_panel_y;
+
+        panel_start_pos_x += card_width;
     }
 }
