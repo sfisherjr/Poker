@@ -8,7 +8,8 @@
 class Card : public Sprite
 {
 public:
-    enum Suit {
+    enum Suit
+    {
         clubs,
         diamonds,
         hearts,

@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Deck.h"
 #include "GraphicsManager.h"
+#include "HandEvaluation.h"
 
 class Game
 {

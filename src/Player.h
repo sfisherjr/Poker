@@ -21,6 +21,7 @@ public:
     void clear_hand();
     std::vector<std::unique_ptr<Card>> retrieve_selected();
     void layout_hand();
+    std::vector<Card*> get_hand();
 
 private:
     std::vector<std::unique_ptr<Card>> hand;

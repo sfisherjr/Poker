@@ -110,3 +110,13 @@ void Player::layout_hand()
         panel_start_pos_x += card_width;
     }
 }
+
+std::vector<Card*> Player::get_hand()
+{
+    std::vector<Card*> buffer_vec;
+
+    for (auto &card : hand)
+        buffer_vec.push_back(card.get());
+
+    return buffer_vec;
+}
