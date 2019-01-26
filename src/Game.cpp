@@ -53,9 +53,9 @@ void Game::init()
     window = SDL_CreateWindow("Poker",
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
-                              dm.w,
-                              dm.h,
-                              SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_ALLOW_HIGHDPI);
+                              1024,
+                              768,
+                              0);
 
     renderer = SDL_CreateRenderer(window, -1, 0);
 
@@ -217,7 +217,13 @@ void Game::game_status_updated()
     }
     else if (game_status == Status::show)
     {
-        change_hud_text("Game Over. Press ENTER to start a new game.");
+        auto hand_eval = std::make_unique<HandEvaluation>(player->get_hand());
+
+        std::stringstream stream;
+        stream << hand_eval->result_str(hand_eval->evaluate_hand())
+               << ". Press ENTER to start a new game.";
+
+        change_hud_text(stream.str());
     }
 }
 

@@ -8,6 +8,8 @@
 #include <memory>
 #include <vector>
 #include <algorithm>
+#include <map>
+#include <string>
 #include "Card.h"
 
 class HandEvaluation
@@ -35,11 +37,23 @@ public:
 
     Card* get_high_card();
 
+    std::string result_str(Result res);
+
 private:
     std::vector<Card*> hand;
 
+    std::map<int, int> hand_occurrences;
+
     static inline bool sort_func(const Card *i, const Card *j)
     { return i->value < j->value; }
+
+    /**
+     * Creates an std::map with the key being the card value
+     * and the value being the number of occurrences of that card
+     * value.
+     * @return Map of occurrences
+     */
+    std::map<int, int> map_hand_occurrences();
 
     bool is_five_of_kind();
 
