@@ -20,4 +20,7 @@ install:
   - sudo apt-get install libsdl2-image-dev
   - sudo apt-get install libsdl2-ttf-dev
 
-script: make
+script:
+  - mkdir build; cd build
+  - cmake ..
+  - make
