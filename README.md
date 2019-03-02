@@ -3,6 +3,7 @@
 
 ## Dependencies
 ----
+- CMake
 - SDL2
 - SDL_image
 - SDL_ttf
@@ -17,7 +18,7 @@
 > 3. Build & Run
 
 #### Linux & MacOS
-> 1. Install CMake
+> 1. Install dependencies (you'll probably have to compile some yourself)
 > 2. Go to Poker directory
 > 3. Run the following commands:
 > ```
