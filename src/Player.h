@@ -22,10 +22,13 @@ public:
     std::vector<std::unique_ptr<Card>> retrieve_selected();
     void layout_hand();
     std::vector<Card*> get_hand();
+    int get_balance();
+    void set_balance(int balance);
 
 private:
     std::vector<std::unique_ptr<Card>> hand;
     std::vector<Card*> removal_hand_refs;
+    int player_balance{0};
 };
 
 #endif

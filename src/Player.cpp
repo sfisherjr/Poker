@@ -121,3 +121,13 @@ std::vector<Card*> Player::get_hand()
 
     return buffer_vec;
 }
+
+int Player::get_balance()
+{
+    return player_balance;
+}
+
+void Player::set_balance(int balance)
+{
+    player_balance = balance;
+}

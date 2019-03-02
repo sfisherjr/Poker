@@ -37,6 +37,7 @@ private:
     TTF_Font *font;
     std::unique_ptr<Sprite> hud_text;
     std::unique_ptr<Sprite> pot_text;
+    std::unique_ptr<Sprite> player_balance_text;
     GraphicsManager *graphics_manager;
 
     void init();
@@ -49,6 +50,7 @@ private:
     void game_status_updated();
     void change_hud_text(std::string text);
     void update_pot_text();
+    void update_player_balance_text(int amount);
     void start_new_game();
 };
 

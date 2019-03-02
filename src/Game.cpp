@@ -98,6 +98,9 @@ void Game::load()
     pot_text = std::make_unique<Sprite>();
     update_pot_text();
 
+    player_balance_text = std::make_unique<Sprite>();
+    update_player_balance_text(500);
+
     std::stringstream stream;
     stream << "Current bet: $" << current_bet;
 
@@ -107,6 +110,7 @@ void Game::load()
 
 void Game::handle_input(SDL_Event event)
 {
+    // TODO: Move mouse handling and key handling to their own functions
     if (event.type == SDL_MOUSEBUTTONDOWN)
     {
         // Only allow to click cards when the status is draw_dump
@@ -149,6 +153,8 @@ void Game::handle_input(SDL_Event event)
                 if (game_status == Status::bet_first
                     || game_status == Status::bet_second)
                 {
+                    if (current_bet + 10 > player->get_balance()) break;
+
                     current_bet += 10;
 
                     std::stringstream stream;
@@ -178,6 +184,7 @@ void Game::draw()
 {
     player->draw(renderer);
     pot_text->draw(renderer);
+    player_balance_text->draw(renderer);
     hud_text->draw(renderer);
 }
 
@@ -199,6 +206,7 @@ void Game::game_status_completed()
     {
         current_pot += current_bet;
         update_pot_text();
+        update_player_balance_text(-current_bet);
     }
 }
 
@@ -227,8 +235,18 @@ void Game::game_status_updated()
         auto hand_eval = std::make_unique<HandEvaluation>(player->get_hand());
 
         std::stringstream stream;
-        stream << hand_eval->result_str(hand_eval->evaluate_hand())
-               << ". Press ENTER to start a new game.";
+
+        if (player->get_balance() == 0)
+        {
+            // TODO: Show game end screen and display stats
+            stream << hand_eval->result_str(hand_eval->evaluate_hand())
+                   << ". You ran out of cash! Press ENTER to start a new game.";
+        }
+        else
+        {
+            stream << hand_eval->result_str(hand_eval->evaluate_hand())
+                   << ". Press ENTER to start a new game.";
+        }
 
         change_hud_text(stream.str());
     }
@@ -264,6 +282,20 @@ void Game::update_pot_text()
     pot_text->load_text(font, stream.str(), renderer);
 }
 
+void Game::update_player_balance_text(int amount)
+{
+    player->set_balance(player->get_balance() + amount);
+
+    std::stringstream stream;
+    stream << "Balance: $" << player->get_balance();
+
+    player_balance_text->load_text(font, stream.str(), renderer);
+
+    auto window_res = graphics_manager->get_window_size();
+
+    player_balance_text->dest_rect.x = window_res.first - player_balance_text->dest_rect.w;
+}
+
 void Game::start_new_game()
 {
     game_status = Status::bet_first;
@@ -275,6 +307,9 @@ void Game::start_new_game()
     current_bet = 0;
 
     update_pot_text();
+
+    if (player->get_balance() == 0)
+        update_player_balance_text(500);
 
     std::stringstream stream;
     stream << "Current bet: $" << current_bet;
