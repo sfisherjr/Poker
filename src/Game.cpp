@@ -50,6 +50,13 @@ void Game::init()
     SDL_DisplayMode dm;
     SDL_GetDesktopDisplayMode(0, &dm);
 
+//    window = SDL_CreateWindow("Poker",
+//                              SDL_WINDOWPOS_CENTERED,
+//                              SDL_WINDOWPOS_CENTERED,
+//                              dm.w,
+//                              dm.h,
+//                              SDL_WINDOW_FULLSCREEN_DESKTOP);
+
     window = SDL_CreateWindow("Poker",
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,

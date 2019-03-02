@@ -1,27 +1,30 @@
 # Simple Poker
 ----
 
+## Dependencies
+----
+- SDL2
+- SDL_image
+- SDL_ttf
+
 ## Build
 ----
 
 #### Windows
-> 1. Install CMake & MinGW
-> 2. Setup environment variable for MinGW
-> 3. Go to Poker directory
-> 4. Run cmake -G "MinGW Makefiles"
-> 5. Run mingw32-make.exe
-> 6. Done
+*Right now support is only for CLion with Visual Studio toolchain*
+> 1. Install the dependencies listed above to a folder of your choice
+> 2. Add CMake option -DCMAKE_PREFIX_PATH=E:\SDL2
+> 3. Build & Run
 
-#### Linux
+#### Linux & MacOS
 > 1. Install CMake
 > 2. Go to Poker directory
-> 3. Run cmake -G "Unix Makefiles"
-> 4. Run make
-> 5. Done
-
-## Design
-----
-The design is being established, as it will be transitioning from CLI based, to a full GUI based game using SDL2.
+> 3. Run the following commands:
+> ```
+> $ mkdir build; cd build
+> $ cmake ..
+> $ make
+> ```
 
 
 ## Sprites

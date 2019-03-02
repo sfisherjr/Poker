@@ -10,4 +10,5 @@ Poker.cbp
 .DS_Store
 build/
 cmake-build-debug/
+cmake-build-release/
 .idea/

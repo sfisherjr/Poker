@@ -58,8 +58,10 @@ std::vector<std::unique_ptr<Card>> Player::retrieve_selected()
 
     std::cout << "removal_hand size = " << removal_hand_refs.size() << std::endl;
 
-    for (int i{static_cast<int>(hand.size())}; i >= 0; --i)
+    for (int i = hand.size() - 1; i >= 0; --i)
     {
+        std::cout << "i = " << i << std::endl;
+
         for (auto removal_card : removal_hand_refs)
         {
             if (hand[i].get() == removal_card)
@@ -70,7 +72,6 @@ std::vector<std::unique_ptr<Card>> Player::retrieve_selected()
             }
         }
     }
-
 
     return selected_cards;
 }
